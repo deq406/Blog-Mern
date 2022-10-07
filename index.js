@@ -19,9 +19,7 @@ import {
 } from "./controllers/index.js";
 
 mongoose
-  .connect(
-    "mongodb+srv://Deepsel:dadking12@cluster0.1pe0l.mongodb.net/blog?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("db ok"))
   .catch((err) => console.log("db error", err));
 const app = express();
@@ -89,7 +87,7 @@ app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
   });
 });
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
