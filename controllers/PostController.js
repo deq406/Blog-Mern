@@ -108,10 +108,6 @@ export const remove = async (req, res) => {
             message: "Статья не найдена",
           });
         }
-
-        res.json({
-          success: true,
-        });
       }
     );
     CommentModel.deleteMany({ _id: postId }, (err, doc) => {
@@ -119,7 +115,7 @@ export const remove = async (req, res) => {
         console.log(err);
       }
       if (!doc) {
-        res.json({ message: "Комментариев не было" });
+        res.status(500).json({ message: "Комментариев не было" });
       }
       res.json({
         success: true,
