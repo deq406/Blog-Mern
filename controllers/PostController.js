@@ -110,7 +110,7 @@ export const remove = async (req, res) => {
         }
       }
     );
-    CommentModel.deleteMany({ _id: postId }, (err, doc) => {
+    CommentModel.deleteMany({ post: postId }, (err, doc) => {
       if (err) {
         console.log(err);
       }
