@@ -2,6 +2,7 @@ import { resolveObjectURL } from "buffer";
 import { resolveSoa } from "dns";
 import Post from "../models/Post.js";
 import PostModel from "../models/Post.js";
+import CommentModel from "../models/Comment.js";
 
 export const getAll = async (req, res) => {
   try {
@@ -113,6 +114,17 @@ export const remove = async (req, res) => {
         });
       }
     );
+    CommentModel.deleteMany({ _id: postId }, (err, doc) => {
+      if (err) {
+        console.log(err);
+      }
+      if (!doc) {
+        res.json({ message: "Комментариев не было" });
+      }
+      res.json({
+        success: true,
+      });
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
